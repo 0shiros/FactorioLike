@@ -19,7 +19,7 @@ public class CameraDrag : MonoBehaviour
     mainCamera = Camera.main;
   }
 
-  public void OnDrag(InputAction.CallbackContext context)
+  public void DragCamera(InputAction.CallbackContext context)
   {
     if (context.started)
     {

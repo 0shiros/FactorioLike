@@ -10,8 +10,8 @@ public class GridManager : MonoBehaviour
     [SerializeField] private int width;
     [SerializeField] private int height;
     [SerializeField] private int cellsSize;
-    [SerializeField] private List<Cell> cells;
     [SerializeField] private Vector2 originPosition;
+    [SerializeField] private List<Cell> cells;
 
     private void Start()
     {
@@ -47,10 +47,8 @@ public class GridManager : MonoBehaviour
         ChangeCellValueOnClick(PositionScreenToWorld(),5);
     }
     
-    private void ChangeCellValueOnClick(Vector2 mousePosition, int newValue)
+    public void ChangeCellValueOnClick(Vector2 mousePosition, int newValue)
     {
-        Debug.Log(mousePosition);
-        
         foreach (Cell cell in cells)
         {
             Vector2 cellPos = cell.GetPosition();
@@ -60,8 +58,6 @@ public class GridManager : MonoBehaviour
                 cellsSize,
                 cellsSize
             );
-            
-            Debug.Log(cellRect.ToString());
 
             if (cellRect.Contains(mousePosition))
             {
