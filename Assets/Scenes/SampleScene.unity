@@ -884,8 +884,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d75fddb437b35c2499623dede31d2051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridManager
-  width: 20
-  height: 20
+  width: 100
+  height: 100
   cellsSize: 1
   originPosition: {x: 0, y: 0}
   cells: []

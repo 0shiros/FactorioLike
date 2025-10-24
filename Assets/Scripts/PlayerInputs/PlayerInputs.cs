@@ -6,7 +6,8 @@ public class PlayerInputs : MonoBehaviour
 {
     [SerializeField] private CameraDrag cameraDrag;
     [SerializeField] private GridManager gridManager;
-
+    private bool isHeld;
+    
     private void Start()
     {
         if (cameraDrag == null)
@@ -20,6 +21,11 @@ public class PlayerInputs : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+       if(isHeld) gridManager.SetValue();
+    }
+
     public void DragCamera(InputAction.CallbackContext context)
     {
         cameraDrag.DragCamera(context);
@@ -27,6 +33,6 @@ public class PlayerInputs : MonoBehaviour
     
     public void ChangeCellValueOnClick(InputAction.CallbackContext context)
     {
-        gridManager.SetValue(context);
+        isHeld = context.action.IsPressed();
     }
 }

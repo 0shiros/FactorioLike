@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using Unity.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -26,9 +24,9 @@ public class GridManager : MonoBehaviour
         float startX = -(width / 2f) * cellsSize + originPosition.x + cellsSize * 0.5f;
         float startY = -(height / 2f) * cellsSize + originPosition.y + cellsSize * 0.5f;
 
-        for (int y = 0; y < width; y++)
+        for (int y = 0; y < height; y++)
         {
-            for (int x = 0; x < height; x++)
+            for (int x = 0; x < width; x++)
             {
                 float cellX = startX + x * cellsSize;
                 float cellY = startY + y * cellsSize;
@@ -41,9 +39,8 @@ public class GridManager : MonoBehaviour
         }
     }
     
-    public void SetValue(InputAction.CallbackContext context)
+    public void SetValue()
     {
-        if (!context.performed) return;
         ChangeCellValueOnClick(PositionScreenToWorld(),5);
     }
     
@@ -83,8 +80,8 @@ public class GridManager : MonoBehaviour
             Vector2 cellPos = cell.GetPosition();
             
             Gizmos.DrawWireCube(
-                new Vector3(cellPos.x, cellPos.y, 0),
-                new Vector3(cellsSize, cellsSize, 0)
+                new Vector2(cellPos.x, cellPos.y),
+                new Vector2(cellsSize, cellsSize)
             );
         }
     }

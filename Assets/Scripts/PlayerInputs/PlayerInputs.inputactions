@@ -41,7 +41,7 @@
                     "name": "",
                     "id": "bbee6497-3a73-47e5-b738-9a959ceed9e4",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "LeftClick",

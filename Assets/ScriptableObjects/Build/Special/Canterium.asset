@@ -13,26 +13,26 @@ MonoBehaviour:
   m_Name: Canterium
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   buildingSprite: {fileID: 871854614597582620, guid: 0db11f03a41d9ed46870a3b9ec64b59a, type: 3}
-  buildingSize: {x: 1, y: 1}
+  buildingSize: {x: 3, y: 3}
   requiresPower: 0
-  resourcesRequired: []
+  resourcesRequiredToBuild: []
   resourcesStored:
   - resource: 0
-    quantity: 0
+    _quantity: 0
   - resource: 1
-    quantity: 0
+    _quantity: 0
   - resource: 2
-    quantity: 0
+    _quantity: 0
   - resource: 3
-    quantity: 0
+    _quantity: 0
   - resource: 4
-    quantity: 0
+    _quantity: 0
   - resource: 5
-    quantity: 0
+    _quantity: 0
   - resource: 6
-    quantity: 0
+    _quantity: 0
   - resource: 7
-    quantity: 0
+    _quantity: 0
   buildingType: 0
   resourcesPerCycle: []
   cycleTime: 0
