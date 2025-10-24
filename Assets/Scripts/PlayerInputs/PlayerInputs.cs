@@ -1,12 +1,12 @@
-using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PlayerInputs : MonoBehaviour
 {
     [SerializeField] private CameraDrag cameraDrag;
     [SerializeField] private GridManager gridManager;
-    private bool isHeld;
+    private bool isLeftClickPress;
     
     private void Start()
     {
@@ -23,7 +23,7 @@ public class PlayerInputs : MonoBehaviour
 
     private void Update()
     {
-       if(isHeld) gridManager.SetValue();
+        if(isLeftClickPress && !EventSystem.current.IsPointerOverGameObject()) gridManager.SetValue();
     }
 
     public void DragCamera(InputAction.CallbackContext context)
@@ -33,6 +33,6 @@ public class PlayerInputs : MonoBehaviour
     
     public void ChangeCellValueOnClick(InputAction.CallbackContext context)
     {
-        isHeld = context.action.IsPressed();
+        isLeftClickPress = context.action.IsPressed();
     }
 }

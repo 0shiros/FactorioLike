@@ -44,7 +44,7 @@ public class GridManager : MonoBehaviour
         ChangeCellValueOnClick(PositionScreenToWorld(),5);
     }
     
-    public void ChangeCellValueOnClick(Vector2 mousePosition, int newValue)
+    private void ChangeCellValueOnClick(Vector2 mousePosition, int newValue)
     {
         foreach (Cell cell in cells)
         {
@@ -59,6 +59,7 @@ public class GridManager : MonoBehaviour
             if (cellRect.Contains(mousePosition))
             {
                 cell.SetValue(newValue);
+                Debug.Log(cell);
                 break;
             }
         }
