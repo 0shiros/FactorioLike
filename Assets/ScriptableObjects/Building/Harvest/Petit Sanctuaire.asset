@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e42dc15e08636cd489fc28e0c893d682, type: 3}
-  m_Name: PetitSanctuaire
+  m_Name: Petit Sanctuaire
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   buildingSprite: {fileID: -103459714157544154, guid: 2bd588fa289931e4390b4af863066ddd, type: 3}
   buildingSize: {x: 1, y: 1}

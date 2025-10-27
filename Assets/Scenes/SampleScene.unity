@@ -167,6 +167,8 @@ GameObject:
   - component: {fileID: 102170569}
   - component: {fileID: 102170568}
   - component: {fileID: 102170567}
+  - component: {fileID: 102170571}
+  - component: {fileID: 102170570}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -229,8 +231,55 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 350}
+  m_SizeDelta: {x: 310, y: 370}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &102170570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102170566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GridLayoutGroup
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 10
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 100, y: 100}
+  m_Spacing: {x: 0, y: 15}
+  m_Constraint: 0
+  m_ConstraintCount: 2
+--- !u!114 &102170571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102170566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40388ab61e9021d44afba6904e5d7660, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingListIcon
+  buildingIconPrefab: {fileID: 7475853554384878043, guid: b95ee50a0f854f04281b6b3ebd91bf2d, type: 3}
+  buildingListIconData:
+  - {fileID: 11400000, guid: 01547fa0e87552c49984bafb01b104ec, type: 2}
+  - {fileID: 11400000, guid: 01547fa0e87552c49984bafb01b104ec, type: 2}
+  - {fileID: 11400000, guid: 01547fa0e87552c49984bafb01b104ec, type: 2}
+  - {fileID: 11400000, guid: 01547fa0e87552c49984bafb01b104ec, type: 2}
+  - {fileID: 11400000, guid: 01547fa0e87552c49984bafb01b104ec, type: 2}
+  - {fileID: 11400000, guid: 01547fa0e87552c49984bafb01b104ec, type: 2}
+  - {fileID: 11400000, guid: 01547fa0e87552c49984bafb01b104ec, type: 2}
+  - {fileID: 11400000, guid: 01547fa0e87552c49984bafb01b104ec, type: 2}
+  - {fileID: 11400000, guid: 01547fa0e87552c49984bafb01b104ec, type: 2}
 --- !u!1 &126152624
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,8 +475,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -175, y: 160}
-  m_SizeDelta: {x: 50, y: 30}
+  m_AnchoredPosition: {x: -205, y: 170}
+  m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &442909599
 MonoBehaviour:
@@ -448,11 +497,11 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -1032,7 +1081,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &703500095
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1219,8 +1268,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -175, y: 120}
-  m_SizeDelta: {x: 50, y: 30}
+  m_AnchoredPosition: {x: -205, y: 130}
+  m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &860298778
 MonoBehaviour:
@@ -1241,11 +1290,11 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -1446,7 +1495,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Special
+  m_text: "Sp\xE9cial"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1479,7 +1528,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 0
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1537,6 +1586,7 @@ GameObject:
   - component: {fileID: 1161483526}
   - component: {fileID: 1161483525}
   - component: {fileID: 1161483528}
+  - component: {fileID: 1161483529}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -1599,7 +1649,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 350}
+  m_SizeDelta: {x: 310, y: 370}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1161483528
 MonoBehaviour:
@@ -1615,9 +1665,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingListIcon
   buildingIconPrefab: {fileID: 7475853554384878043, guid: b95ee50a0f854f04281b6b3ebd91bf2d, type: 3}
   buildingListIconData:
-  - {fileID: 11400000, guid: 664734139ba9e8d43b5df8cdc9800776, type: 2}
-  iconSize: 1
-  iconsPerRow: 3
+  - {fileID: 11400000, guid: f0c566c43caae2d4d817119e7f7c00b6, type: 2}
+  - {fileID: 11400000, guid: f0c566c43caae2d4d817119e7f7c00b6, type: 2}
+  - {fileID: 11400000, guid: f0c566c43caae2d4d817119e7f7c00b6, type: 2}
+  - {fileID: 11400000, guid: f0c566c43caae2d4d817119e7f7c00b6, type: 2}
+  - {fileID: 11400000, guid: f0c566c43caae2d4d817119e7f7c00b6, type: 2}
+  - {fileID: 11400000, guid: f0c566c43caae2d4d817119e7f7c00b6, type: 2}
+  - {fileID: 11400000, guid: f0c566c43caae2d4d817119e7f7c00b6, type: 2}
+  - {fileID: 11400000, guid: f0c566c43caae2d4d817119e7f7c00b6, type: 2}
+  - {fileID: 11400000, guid: f0c566c43caae2d4d817119e7f7c00b6, type: 2}
+--- !u!114 &1161483529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1161483524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GridLayoutGroup
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 10
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 100, y: 100}
+  m_Spacing: {x: 0, y: 15}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &1233185550
 GameObject:
   m_ObjectHideFlags: 0
@@ -1851,7 +1931,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 0
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -1953,6 +2033,8 @@ GameObject:
   - component: {fileID: 1490342384}
   - component: {fileID: 1490342383}
   - component: {fileID: 1490342382}
+  - component: {fileID: 1490342386}
+  - component: {fileID: 1490342385}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -2015,8 +2097,55 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 350}
+  m_SizeDelta: {x: 310, y: 370}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1490342385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1490342381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GridLayoutGroup
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 10
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 100, y: 100}
+  m_Spacing: {x: 0, y: 15}
+  m_Constraint: 0
+  m_ConstraintCount: 2
+--- !u!114 &1490342386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1490342381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40388ab61e9021d44afba6904e5d7660, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingListIcon
+  buildingIconPrefab: {fileID: 7475853554384878043, guid: b95ee50a0f854f04281b6b3ebd91bf2d, type: 3}
+  buildingListIconData:
+  - {fileID: 11400000, guid: 6854faf76f0c8d942be354664abb8064, type: 2}
+  - {fileID: 11400000, guid: 6854faf76f0c8d942be354664abb8064, type: 2}
+  - {fileID: 11400000, guid: 6854faf76f0c8d942be354664abb8064, type: 2}
+  - {fileID: 11400000, guid: 6854faf76f0c8d942be354664abb8064, type: 2}
+  - {fileID: 11400000, guid: 6854faf76f0c8d942be354664abb8064, type: 2}
+  - {fileID: 11400000, guid: 6854faf76f0c8d942be354664abb8064, type: 2}
+  - {fileID: 11400000, guid: 6854faf76f0c8d942be354664abb8064, type: 2}
+  - {fileID: 11400000, guid: 6854faf76f0c8d942be354664abb8064, type: 2}
+  - {fileID: 11400000, guid: 6854faf76f0c8d942be354664abb8064, type: 2}
 --- !u!1 &1544090203
 GameObject:
   m_ObjectHideFlags: 0
@@ -2191,8 +2320,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -225, y: 225}
-  m_SizeDelta: {x: 400, y: 400}
+  m_AnchoredPosition: {x: -240, y: 220}
+  m_SizeDelta: {x: 440, y: 420}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1657551268
 MonoBehaviour:
@@ -2536,8 +2665,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -175, y: 80}
-  m_SizeDelta: {x: 50, y: 30}
+  m_AnchoredPosition: {x: -205, y: 90}
+  m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1928678164
 MonoBehaviour:
@@ -2558,11 +2687,11 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -2847,7 +2976,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Harvest
+  m_text: "R\xE9colte\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2880,7 +3009,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 0
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

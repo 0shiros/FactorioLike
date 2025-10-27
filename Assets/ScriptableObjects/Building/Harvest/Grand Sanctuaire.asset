@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e42dc15e08636cd489fc28e0c893d682, type: 3}
-  m_Name: GrandSanctuaire
+  m_Name: Grand Sanctuaire
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   buildingSprite: {fileID: -2570271419406905223, guid: f38072b44fed33848b78b1a8566a7442, type: 3}
   buildingSize: {x: 3, y: 3}
