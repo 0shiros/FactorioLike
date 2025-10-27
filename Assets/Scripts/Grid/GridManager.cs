@@ -5,22 +5,18 @@ using UnityEngine.InputSystem;
 public class GridManager : MonoBehaviour
 {
     [Header("Grid Settings")]
-    [SerializeField] private int width;
-    [SerializeField] private int height;
-    [SerializeField] private int cellsSize;
+    [SerializeField] private int width, height, cellsSize;
     [SerializeField] private Vector2 originPosition;
     [SerializeField] private List<Cell> cells;
+    private BuildingData buildingData;
 
-    private void Start()
-    {
-        InitializeGrid();
-    }
+    public GameObject buildings;
+    public GameObject[] buildingsPrefabs;
+
+    private void Start() => InitializeGrid();
 
     private void InitializeGrid()
     {
-        if (cells == null)
-            cells = new List<Cell>();
-
         float startX = -(width / 2f) * cellsSize + originPosition.x + cellsSize * 0.5f;
         float startY = -(height / 2f) * cellsSize + originPosition.y + cellsSize * 0.5f;
 
@@ -28,48 +24,50 @@ public class GridManager : MonoBehaviour
         {
             for (int x = 0; x < width; x++)
             {
-                float cellX = startX + x * cellsSize;
-                float cellY = startY + y * cellsSize;
-                Vector2 cellPosition = new Vector2(cellX, cellY);
-                
-                Cell cell = new Cell();
-                cell.InitializeCell(cellPosition, 0);
-                cells.Add(cell);
+                Vector2 cellPosition = new Vector2(startX + x * cellsSize, startY + y * cellsSize);
+                cells.Add(new Cell { position = cellPosition, building = null } );;
             }
         }
     }
-    
-    public void SetValue()
-    {
-        ChangeCellValueOnClick(PositionScreenToWorld(),5);
-    }
-    
-    private void ChangeCellValueOnClick(Vector2 mousePosition, int newValue)
+
+    public void SetValue() => ChangeCellValueOnClick(PositionScreenToWorld(), buildingData);
+
+    private void OnEnable() => GetBuild.action += SetBuildingData;
+    private void OnDisable() => GetBuild.action -= SetBuildingData;
+
+    private void SetBuildingData(BuildingData building) => buildingData = building;
+
+    private void ChangeCellValueOnClick(Vector2 mousePosition, BuildingData building)
     {
         foreach (Cell cell in cells)
         {
-            Vector2 cellPos = cell.GetPosition();
             Rect cellRect = new Rect(
-                cellPos.x - cellsSize / 2f,
-                cellPos.y - cellsSize / 2f,
+                cell.GetPosition().x - cellsSize / 2f,
+                cell.GetPosition().y - cellsSize / 2f,
                 cellsSize,
                 cellsSize
             );
 
-            if (cellRect.Contains(mousePosition))
+            if (cellRect.Contains(mousePosition) && cell.GetValue() == null && buildingData != null)    
             {
-                cell.SetValue(newValue);
-                Debug.Log(cell);
+                cell.SetValue(CreateBuilding(cell));
                 break;
             }
         }
     }
-    
+
+    private GameObject CreateBuilding(Cell cell)
+    {
+        GameObject prefab = buildingsPrefabs[(int)buildingData.buildingType];
+        GameObject buildingInstance = Instantiate(prefab, cell.GetPosition(), Quaternion.identity, buildings.transform);
+        buildingInstance.GetComponent<Building>().InitializeBuilding(buildingData);
+        return buildingInstance;
+    }
+
     private Vector2 PositionScreenToWorld()
     {
         Vector2 mousePosition = Mouse.current.position.ReadValue();
-        Camera mainCamera = Camera.main;
-        return mainCamera.ScreenToWorldPoint(mousePosition);
+        return Camera.main.ScreenToWorldPoint(mousePosition);
     }
 
     private void OnDrawGizmos()
@@ -78,14 +76,7 @@ public class GridManager : MonoBehaviour
         Gizmos.color = Color.white;
         foreach (Cell cell in cells)
         {
-            Vector2 cellPos = cell.GetPosition();
-            
-            Gizmos.DrawWireCube(
-                new Vector2(cellPos.x, cellPos.y),
-                new Vector2(cellsSize, cellsSize)
-            );
+            Gizmos.DrawWireCube(cell.GetPosition(), Vector2.one * cellsSize);
         }
     }
 }
-
-

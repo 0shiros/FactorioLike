@@ -1,31 +1,23 @@
 using UnityEngine;
 
 [System.Serializable]
-public class Cell
+public class Cell 
 {
     public Vector2 position;
-    public int value;
-    
-    public void InitializeCell(Vector2 position, int value)
-    {
-        this.position = position;
-        this.value = value;
-    }
+    public GameObject building;
     
     public Vector2 GetPosition()
     {
         return position;
     }
     
-    public int GetValue()
+    public GameObject GetValue()
     {
-        return value;
+        return building;
     }
     
-    public void SetValue(int newValue)
+    public void SetValue(GameObject newBuilding)
     {
-        value = newValue;
+        building = newBuilding;
     }
-    
-    
 }

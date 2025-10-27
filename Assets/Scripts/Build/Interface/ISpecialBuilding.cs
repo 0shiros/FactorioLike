@@ -1,5 +1,5 @@
 
-public interface ISpecialBuilding
+public interface ISpecialBuilding 
 {
-    void SpecialFunction();
+    void ActivateSpecialAbility();
 }

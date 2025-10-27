@@ -167,8 +167,8 @@ GameObject:
   - component: {fileID: 102170569}
   - component: {fileID: 102170568}
   - component: {fileID: 102170567}
-  - component: {fileID: 102170571}
   - component: {fileID: 102170570}
+  - component: {fileID: 102170571}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -438,6 +438,37 @@ Transform:
   m_Children:
   - {fileID: 1544090204}
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &370934149
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 370934150}
+  m_Layer: 0
+  m_Name: Buildings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &370934150
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370934149}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 642131993}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &442909597
 GameObject:
@@ -1064,6 +1095,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1005144767}
+  - {fileID: 370934150}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &703500094
@@ -1438,6 +1470,11 @@ MonoBehaviour:
   cellsSize: 1
   originPosition: {x: 0, y: 0}
   cells: []
+  buildings: {fileID: 370934149}
+  buildingsPrefabs:
+  - {fileID: 1861461523753825792, guid: e7b869f385349534e85f383046f86beb, type: 3}
+  - {fileID: 1861461523753825792, guid: c98d50163a7a0394181ebe37e941cd72, type: 3}
+  - {fileID: 1861461523753825792, guid: deea23c994f42ae47a7c0720eaed8c00, type: 3}
 --- !u!1 &1081172758
 GameObject:
   m_ObjectHideFlags: 0
@@ -1585,8 +1622,8 @@ GameObject:
   - component: {fileID: 1161483527}
   - component: {fileID: 1161483526}
   - component: {fileID: 1161483525}
-  - component: {fileID: 1161483528}
   - component: {fileID: 1161483529}
+  - component: {fileID: 1161483528}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -1988,7 +2025,7 @@ GameObject:
   - component: {fileID: 1311270030}
   - component: {fileID: 1311270031}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2033,8 +2070,8 @@ GameObject:
   - component: {fileID: 1490342384}
   - component: {fileID: 1490342383}
   - component: {fileID: 1490342382}
-  - component: {fileID: 1490342386}
   - component: {fileID: 1490342385}
+  - component: {fileID: 1490342386}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged

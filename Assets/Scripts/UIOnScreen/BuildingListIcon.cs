@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class BuildingListIcon : MonoBehaviour
 {
     [SerializeField] private GameObject buildingIconPrefab;
-    [SerializeField] private List<BuildingData> buildingListIconData;
+    public List<BuildingData> buildingListIconData;
 
     private void Start()
     {
@@ -19,6 +19,7 @@ public class BuildingListIcon : MonoBehaviour
         for (int i = 0; i < buildingListIconData.Count; i++)
         {
             GameObject icon = Instantiate(buildingIconPrefab, Vector3.zero, Quaternion.identity, transform);
+            icon.GetComponentInChildren<GetBuild>().index = i;
             icon.GetComponentInChildren<TextMeshProUGUI>().text = buildingListIconData[i].buildingName;
             icon.GetComponentInChildren<Image>().sprite = buildingListIconData[i].buildingSprite;
         }
