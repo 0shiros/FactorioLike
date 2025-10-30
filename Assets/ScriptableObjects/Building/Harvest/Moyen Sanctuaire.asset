@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e42dc15e08636cd489fc28e0c893d682, type: 3}
   m_Name: Moyen Sanctuaire
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  buildingSprite: {fileID: -8618982070109991643, guid: a60ad29ea2f6c4340b4b4cfcf4211f4f, type: 3}
+  buildingSprite: {fileID: 5981005362195350469, guid: a60ad29ea2f6c4340b4b4cfcf4211f4f, type: 3}
   buildingSize: {x: 2, y: 2}
   requiresPower: 1
   resourcesRequiredToBuild:

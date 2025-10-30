@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e42dc15e08636cd489fc28e0c893d682, type: 3}
   m_Name: Infernium
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  buildingSprite: {fileID: 509603702665577539, guid: 5fa72a97fe7cad945b2061f3361d7572, type: 3}
+  buildingSprite: {fileID: 21300000, guid: 8446a82a8160a874c9813e44c9a81e94, type: 3}
   buildingSize: {x: 3, y: 3}
   requiresPower: 1
   resourcesRequiredToBuild:

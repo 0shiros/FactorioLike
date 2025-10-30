@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ebbe258ae6131428574d5805642111, type: 3}
   m_Name: Cristalert
   m_EditorClassIdentifier: Assembly-CSharp::ResourceData
-  resourceSprite: {fileID: 6625849537341834292, guid: 6c35fe2bbb4bffc49a06ea7f7b47d9d6, type: 3}
-  extractResourcePrefab: {fileID: 151285982242699022, guid: 682ed89a3d9dc8445b42379f75bc0a4e, type: 3}
+  resourceSprite: {fileID: 21300000, guid: 8356ae320704dd54196bfd49f907ceea, type: 3}
+  extractResource: 0

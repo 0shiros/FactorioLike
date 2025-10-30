@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 
 public class GridManager : MonoBehaviour
 {
@@ -9,9 +10,15 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Vector2 originPosition;
     [SerializeField] private List<Cell> cells;
     private BuildingData buildingData;
+    private int currentCellIndex;
 
+    [Header("Buildings Settings")]
     public GameObject buildings;
     public GameObject[] buildingsPrefabs;
+
+    [Header("Tilemap Settings")]
+    public Tilemap tileMapResources;
+    
 
     private void Start() => InitializeGrid();
 
@@ -25,43 +32,77 @@ public class GridManager : MonoBehaviour
             for (int x = 0; x < width; x++)
             {
                 Vector2 cellPosition = new Vector2(startX + x * cellsSize, startY + y * cellsSize);
-                cells.Add(new Cell { position = cellPosition, building = null } );;
+                cells.Add(new Cell { 
+                    position = cellPosition, 
+                    building = null, 
+                    rect = new Rect(
+                    cellPosition.x - cellsSize / 2f,
+                    cellPosition.y - cellsSize / 2f,
+                    cellsSize,
+                    cellsSize),
+                });
             }
         }
     }
-
-    public void SetValue() => ChangeCellValueOnClick(PositionScreenToWorld(), buildingData);
-
-    private void OnEnable() => GetBuild.action += SetBuildingData;
-    private void OnDisable() => GetBuild.action -= SetBuildingData;
-
-    private void SetBuildingData(BuildingData building) => buildingData = building;
-
-    private void ChangeCellValueOnClick(Vector2 mousePosition, BuildingData building)
+    private void OnEnable() => GetBuild.action += SetBuildingCellData;
+    private void OnDisable() => GetBuild.action -= SetBuildingCellData;
+    private void SetBuildingCellData(BuildingData building) => buildingData = building;
+    
+    public void RemoveBuildingFromMap()
     {
-        foreach (Cell cell in cells)
-        {
-            Rect cellRect = new Rect(
-                cell.GetPosition().x - cellsSize / 2f,
-                cell.GetPosition().y - cellsSize / 2f,
-                cellsSize,
-                cellsSize
-            );
+        DetectCellContains();
+        DestroyBuildings(currentCellIndex);
+    }
 
-            if (cellRect.Contains(mousePosition) && cell.GetValue() == null && buildingData != null)    
+    public void AddBuildingToMap()
+    {
+        DetectCellContains();
+
+        if (CanConstructOnCell(currentCellIndex))
+        {
+            CreateBuilding(currentCellIndex);
+        }
+    }
+
+    private bool CanConstructOnCell(int cellIndex)
+    {
+        if (cells[currentCellIndex].building == null && buildingData != null)
+        {
+            return true;
+        }
+        
+        return false;
+    }
+
+    private void DetectCellContains()
+    {
+        for (int i = 0; i < cells.Count; i++)
+        {
+            if (cells[i].rect.Contains(PositionScreenToWorld()))
             {
-                cell.SetValue(CreateBuilding(cell));
+                currentCellIndex = i;
                 break;
             }
         }
     }
 
-    private GameObject CreateBuilding(Cell cell)
+    private GameObject CreateBuilding(int cellIndex)
     {
         GameObject prefab = buildingsPrefabs[(int)buildingData.buildingType];
-        GameObject buildingInstance = Instantiate(prefab, cell.GetPosition(), Quaternion.identity, buildings.transform);
-        buildingInstance.GetComponent<Building>().InitializeBuilding(buildingData);
+        GameObject buildingInstance = Instantiate(prefab, cells[currentCellIndex].position, Quaternion.identity, buildings.transform);
+        Building scriptBuilding = buildingInstance.GetComponent<Building>();
+        if(scriptBuilding.buildingType == BuildingType.Harvest)
+        {
+            HarvestBuilding harvestBuilding = buildingInstance.GetComponent<HarvestBuilding>();
+            harvestBuilding.InitializeHarvestBuilding(buildingData);
+        }
+        cells[currentCellIndex].building = buildingInstance;
         return buildingInstance;
+    }
+
+    private void DestroyBuildings(int cellIndex)
+    {
+        Destroy(cells[cellIndex].building);
     }
 
     private Vector2 PositionScreenToWorld()
@@ -76,7 +117,8 @@ public class GridManager : MonoBehaviour
         Gizmos.color = Color.white;
         foreach (Cell cell in cells)
         {
-            Gizmos.DrawWireCube(cell.GetPosition(), Vector2.one * cellsSize);
+            Gizmos.DrawWireCube(cell.position, Vector2.one * cellsSize);
         }
     }
+
 }

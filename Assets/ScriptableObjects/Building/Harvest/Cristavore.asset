@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e42dc15e08636cd489fc28e0c893d682, type: 3}
   m_Name: Cristavore
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  buildingSprite: {fileID: -6545217119642086591, guid: e0443bc1dc07ccf4798efc4cefc42dba, type: 3}
+  buildingSprite: {fileID: 21300000, guid: 8a0f001cc47f716478cada1d3d47220c, type: 3}
   buildingSize: {x: 1, y: 1}
   requiresPower: 1
   resourcesRequiredToBuild:

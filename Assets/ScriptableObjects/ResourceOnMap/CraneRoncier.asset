@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ebbe258ae6131428574d5805642111, type: 3}
   m_Name: CraneRoncier
   m_EditorClassIdentifier: Assembly-CSharp::MapResourceData
-  resourceSprite: {fileID: 3863864276438554331, guid: 6b666f81029063745b62a581bbd92f69, type: 3}
+  resourceSprite: {fileID: 21300000, guid: a97347b8b346a464eba1b82a77d22315, type: 3}
   extractResource: 3

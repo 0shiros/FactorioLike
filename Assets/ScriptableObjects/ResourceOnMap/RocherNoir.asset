@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ebbe258ae6131428574d5805642111, type: 3}
   m_Name: RocherNoir
   m_EditorClassIdentifier: Assembly-CSharp::MapResourceData
-  resourceSprite: {fileID: 1620138313049539765, guid: 15ce1c144e9508b4788518d303380be9, type: 3}
+  resourceSprite: {fileID: 21300000, guid: 3bd85ceb9dfbad945aca7258134b1894, type: 3}
   extractResource: 2

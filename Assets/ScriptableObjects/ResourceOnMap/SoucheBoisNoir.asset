@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77ebbe258ae6131428574d5805642111, type: 3}
   m_Name: SoucheBoisNoir
   m_EditorClassIdentifier: Assembly-CSharp::MapResourceData
-  resourceSprite: {fileID: -2750107595589250530, guid: bf0e49a7c22c64b4ca563a1f26c3799c, type: 3}
+  resourceSprite: {fileID: -4423003274652006393, guid: 4b0145818f4b4bc48b55fc5338b1b4b6, type: 3}
   extractResource: 1

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e42dc15e08636cd489fc28e0c893d682, type: 3}
   m_Name: Autel Offrande
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  buildingSprite: {fileID: 5698012681482600216, guid: 0db11f03a41d9ed46870a3b9ec64b59a, type: 3}
+  buildingSprite: {fileID: 21300000, guid: dee3bad11e3535f4b8a7d0364437fc7d, type: 3}
   buildingSize: {x: 1, y: 1}
   requiresPower: 1
   resourcesRequiredToBuild:

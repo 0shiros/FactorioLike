@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e42dc15e08636cd489fc28e0c893d682, type: 3}
   m_Name: Gloculaire
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  buildingSprite: {fileID: -3736867644340484305, guid: a6db0374276e52941ad9b13287957441, type: 3}
+  buildingSprite: {fileID: 21300000, guid: cc21382f3d0758c47b26ab084bd860e3, type: 3}
   buildingSize: {x: 3, y: 3}
   requiresPower: 1
   resourcesRequiredToBuild:
