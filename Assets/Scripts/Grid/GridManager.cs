@@ -18,9 +18,8 @@ public class GridManager : MonoBehaviour
 
     [Header("Tilemap Settings")]
     public Tilemap tileMapResources;
+    private TileBase tileToConstruct;
     public TileBase cristalertTileOnMap, boisNoireTileOnMap, rocheNoireTileOnMap, craneRoncierTileOnMap;
-
-    
 
     private void Start() => InitializeGrid();
 
@@ -58,14 +57,11 @@ public class GridManager : MonoBehaviour
     public void AddBuildingToMap()
     {
         DetectCellContains();
-
         if (CanConstructOnCell(currentCellIndex))
         {
-            CreateBuilding(currentCellIndex);
+            CreateBuilding(buildingsPrefabs[(int)buildingData.buildingType], currentCellIndex);
         }
     }
-
-    private bool CanConstructOnCell(int cellIndex) => cells[currentCellIndex].building == null && buildingData != null;
     
     private void DetectCellContains()
     {
@@ -80,22 +76,36 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    private GameObject CreateBuilding(int cellIndex)
+    private bool CanConstructOnCell(int cellIndex)
     {
-        GameObject prefab = buildingsPrefabs[(int)buildingData.buildingType];
+        if (cells[cellIndex].building != null || buildingData == null) return false;
+
+        TileBase detectedTile = DetectTile(PositionScreenToWorld());
+        return (detectedTile == null && (buildingData.buildingType == BuildingType.Special || buildingData.buildingType == BuildingType.Transform)) ||
+               (detectedTile != null && buildingData.buildingType == BuildingType.Harvest);
+    }
+
+    private GameObject CreateBuilding(GameObject prefab, int cellIndex)
+    {
         GameObject buildingInstance = Instantiate(prefab, cells[currentCellIndex].position, Quaternion.identity, buildings.transform);
         Building buildingComponent = buildingInstance.GetComponent<Building>();
         buildingComponent.InitializeBuilding(buildingData,ReturnOrderInLayer(cells[currentCellIndex].position), tileMapResources);
         cells[currentCellIndex].building = buildingInstance;
         return buildingInstance;
     }
-    
-    private int ReturnOrderInLayer(Vector2 position) => height / 2 - (int)position.y;
-
     private void DestroyBuildings(int cellIndex)
     {
         Destroy(cells[cellIndex].building);
     }
+    
+    private TileBase DetectTile(Vector2 mousePosition)
+    {
+        if (tileMapResources == null) return null;
+        return tileToConstruct = tileMapResources.GetTile(tileMapResources.WorldToCell(mousePosition));
+    }
+    
+    private int ReturnOrderInLayer(Vector2 position) => height / 2 - (int)position.y;
+
 
     private Vector2 PositionScreenToWorld() => Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
     

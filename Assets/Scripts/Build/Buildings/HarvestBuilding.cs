@@ -1,22 +1,15 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class HarvestBuilding : Building
 {
-    [Header("References")]
-    private Transform trans;
-    
     [Header("Harvesting State")]
     public TileMapToResource tileToResourceMap;
     public List<ResourceAndAmount> resourcesStored;
     private ExtractOrTranformResource resourceExtracted;
     private float timeElapsed;
-    private TileBase resourceTile;
-
-    private void Start() => trans = transform;
     
     private void Update()
     {
@@ -29,20 +22,20 @@ public class HarvestBuilding : Building
         base.InitializeBuilding(data, order, tileMapResources);
         timeElapsed = 0f;
     }
-    
+
     private void DetectTile()
     {
         if (tilemapResources == null) return;
         
         Vector3Int cellPosition = tilemapResources.WorldToCell(trans.position);
-        resourceTile = tilemapResources.GetTile(cellPosition);
+        currentTile = tilemapResources.GetTile(cellPosition);
         
-        if (resourceTile != null) IdentifyResource();
+        if (currentTile != null) IdentifyResource();
     }
     
     private void IdentifyResource()
     {
-        TileToResource tileToResource = tileToResourceMap.tileToResourceMap.Find(t => t.tile == resourceTile);
+        TileToResource tileToResource = tileToResourceMap.tileToResourceMap.Find(t => t.tile == currentTile);
 
         if (tileToResource == null) return;
 

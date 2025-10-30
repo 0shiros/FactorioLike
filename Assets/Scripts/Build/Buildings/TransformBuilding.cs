@@ -11,4 +11,6 @@ public class TransformBuilding : Building
         base.InitializeBuilding(data, order, tileMapResources);
         timeElapsed = 0f;
     }
+    
+    
 }

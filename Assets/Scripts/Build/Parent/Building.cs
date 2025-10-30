@@ -14,7 +14,12 @@ public class Building : MonoBehaviour
     
     [Header("References")]
     public Tilemap tilemapResources;
+    protected Transform trans;
+    
+    [Header("Building State")]
+    protected TileBase currentTile;
 
+    private void Start() => trans = transform;
 
     public virtual void InitializeBuilding(BuildingData data, int order, Tilemap tilemapResource)
     {

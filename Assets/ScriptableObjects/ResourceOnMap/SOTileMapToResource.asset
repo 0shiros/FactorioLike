@@ -12,3 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cbf3b8427fb60748a0ded7dc7d75210, type: 3}
   m_Name: SOTileMapToResource
   m_EditorClassIdentifier: Assembly-CSharp::TileMapToResource
+  tileToResourceMap:
+  - tile: {fileID: 11400000, guid: 2adb6de066d7fc242b761165cf7a4c1a, type: 2}
+    resource: 1
+  - tile: {fileID: 11400000, guid: d48f83ee3563f4d488709419891752b8, type: 2}
+    resource: 2
+  - tile: {fileID: 11400000, guid: d5f63c0e4aca65c48ab195f00b2ae510, type: 2}
+    resource: 3
+  - tile: {fileID: 11400000, guid: 7e9c30458ba621c4688e150804bae862, type: 2}
+    resource: 4
+  - tile: {fileID: 0}
+    resource: 0
