@@ -104,3 +104,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HarvestBuilding
   buildingData: {fileID: 0}
+  buildingType: 0
+  requiresPower: 0
+  resourcesCanBeExtractedOrTransformed: 
+  quantityResourcesPerCycle: 0
+  cycleTime: 0
+  description: 
+  tilemapResources: {fileID: 0}
+  tileToResourceMap: {fileID: 11400000, guid: beb8f50622c433b45b6a86fd6df89e5b, type: 2}
+  resourcesStored: []

@@ -6,7 +6,6 @@ public class BuildingData : ScriptableObject
 {
     public string buildingName => name;
     public Sprite buildingSprite;
-    public int buildingSize;
     public bool requiresPower;
     public ResourceAndAmount[] resourcesRequiredToBuild;
     public List<ResourceAndAmount> resourcesStored;
