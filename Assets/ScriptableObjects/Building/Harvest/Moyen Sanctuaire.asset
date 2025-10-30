@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Moyen Sanctuaire
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   buildingSprite: {fileID: 5981005362195350469, guid: a60ad29ea2f6c4340b4b4cfcf4211f4f, type: 3}
-  buildingSize: {x: 2, y: 2}
+  buildingSize: 2
   requiresPower: 1
   resourcesRequiredToBuild:
   - resource: 1
@@ -22,20 +22,9 @@ MonoBehaviour:
     _quantity: 500
   - resource: 3
     _quantity: 500
-  resourcesStored:
-  - resource: 1
-    _quantity: 0
-  - resource: 2
-    _quantity: 0
-  - resource: 3
-    _quantity: 0
+  resourcesStored: []
   buildingType: 2
-  resourcesPerCycle:
-  - resource: 1
-    _quantity: 100
-  - resource: 2
-    _quantity: 100
-  - resource: 3
-    _quantity: 100
+  resourcesCanBeExtractedOrTransformed: 01000000020000000300000004000000
+  quantityResourcesPerCycle: 100
   cycleTime: 60
   description: 'Se pose sur la ressource et en extrait la ressource  '

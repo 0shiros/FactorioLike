@@ -18,6 +18,10 @@ public class GridManager : MonoBehaviour
 
     [Header("Tilemap Settings")]
     public Tilemap tileMapResources;
+    public TileBase cristalertTileOnMap;
+    public TileBase boisNoireTileOnMap;
+    public TileBase rocheNoireTileOnMap;
+    public TileBase craneRoncierTileOnMap;
     
 
     private void Start() => InitializeGrid();
@@ -90,11 +94,13 @@ public class GridManager : MonoBehaviour
     {
         GameObject prefab = buildingsPrefabs[(int)buildingData.buildingType];
         GameObject buildingInstance = Instantiate(prefab, cells[currentCellIndex].position, Quaternion.identity, buildings.transform);
-        Building scriptBuilding = buildingInstance.GetComponent<Building>();
-        if(scriptBuilding.buildingType == BuildingType.Harvest)
+        Building buildingComponent = buildingInstance.GetComponent<Building>();
+        buildingComponent.buildingType = buildingData.buildingType;
+        if(buildingComponent.buildingType == BuildingType.Harvest)
         {
             HarvestBuilding harvestBuilding = buildingInstance.GetComponent<HarvestBuilding>();
-            harvestBuilding.InitializeHarvestBuilding(buildingData);
+            harvestBuilding.tilemapResources = tileMapResources;
+            harvestBuilding.InitializeHarvestBuilding(buildingData, cristalertTileOnMap, boisNoireTileOnMap, rocheNoireTileOnMap, craneRoncierTileOnMap);
         }
         cells[currentCellIndex].building = buildingInstance;
         return buildingInstance;

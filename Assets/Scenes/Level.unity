@@ -1427,6 +1427,10 @@ MonoBehaviour:
   - {fileID: 1861461523753825792, guid: c98d50163a7a0394181ebe37e941cd72, type: 3}
   - {fileID: 1861461523753825792, guid: deea23c994f42ae47a7c0720eaed8c00, type: 3}
   tileMapResources: {fileID: 1321673739}
+  cristalertTileOnMap: {fileID: 11400000, guid: 2adb6de066d7fc242b761165cf7a4c1a, type: 2}
+  boisNoireTileOnMap: {fileID: 11400000, guid: d48f83ee3563f4d488709419891752b8, type: 2}
+  rocheNoireTileOnMap: {fileID: 11400000, guid: d5f63c0e4aca65c48ab195f00b2ae510, type: 2}
+  craneRoncierTileOnMap: {fileID: 11400000, guid: 7e9c30458ba621c4688e150804bae862, type: 2}
 --- !u!1 &1081172758
 GameObject:
   m_ObjectHideFlags: 0

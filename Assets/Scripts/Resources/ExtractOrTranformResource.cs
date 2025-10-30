@@ -2,6 +2,8 @@ using UnityEngine;
 
 public enum ExtractOrTranformResource
 {
+    none,
+    
     //Extractable Resources
     Extract_FragmentCristalert,
     Extract_BrancheNoire,

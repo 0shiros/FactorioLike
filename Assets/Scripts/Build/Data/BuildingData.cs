@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Building")]
@@ -8,10 +9,11 @@ public class BuildingData : ScriptableObject
     public int buildingSize;
     public bool requiresPower;
     public ResourceAndAmount[] resourcesRequiredToBuild;
-    public ResourceAndAmount[] resourcesStored;
+    public List<ResourceAndAmount> resourcesStored;
     public BuildingType buildingType;
-    public ResourceAndAmount resourcesPerCycle;
-    public float cycleTime;
+    public ExtractOrTranformResource[] resourcesCanBeExtractedOrTransformed;
+    public int quantityResourcesPerCycle;
+    public float cycleTime = 1;
     public string description;
 }
 

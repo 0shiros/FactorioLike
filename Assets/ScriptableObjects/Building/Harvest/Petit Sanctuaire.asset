@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Petit Sanctuaire
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   buildingSprite: {fileID: -103459714157544154, guid: 2bd588fa289931e4390b4af863066ddd, type: 3}
-  buildingSize: {x: 1, y: 1}
+  buildingSize: 1
   requiresPower: 1
   resourcesRequiredToBuild:
   - resource: 1
@@ -22,20 +22,9 @@ MonoBehaviour:
     _quantity: 10
   - resource: 3
     _quantity: 10
-  resourcesStored:
-  - resource: 1
-    _quantity: 0
-  - resource: 2
-    _quantity: 0
-  - resource: 3
-    _quantity: 0
+  resourcesStored: []
   buildingType: 2
-  resourcesPerCycle:
-  - resource: 1
-    _quantity: 50
-  - resource: 2
-    _quantity: 50
-  - resource: 3
-    _quantity: 50
+  resourcesCanBeExtractedOrTransformed: 01000000020000000300000004000000
+  quantityResourcesPerCycle: 20
   cycleTime: 60
   description: 'Se pose sur la ressource et en extrait la ressource  '

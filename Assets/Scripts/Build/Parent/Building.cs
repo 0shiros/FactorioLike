@@ -13,7 +13,6 @@ public class Building : MonoBehaviour
         buildingData = data;
         gameObject.name = buildingData.name;
         gameObject.GetComponent<SpriteRenderer>().sprite = buildingData.buildingSprite;
-        buildingType = buildingData.buildingType;
         buildingSize = buildingData.buildingSize;
         requiresPower = buildingData.requiresPower;
         description = buildingData.description;
