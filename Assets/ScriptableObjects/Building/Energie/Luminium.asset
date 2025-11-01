@@ -10,25 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e42dc15e08636cd489fc28e0c893d682, type: 3}
-  m_Name: Spiritum
+  m_Name: Luminium
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  buildingSprite: {fileID: 21300000, guid: 6b91ef0022826f94fb31f381bb9d7b71, type: 3}
-  buildingSize: {x: 1, y: 1}
-  requiresPower: 0
+  buildingPrefab: {fileID: 1861461523753825792, guid: de4379985474c93469ca2213bce99749, type: 3}
+  buildingSprite: {fileID: 21300000, guid: 1e607954e89e7f542819bc55e9734ab2, type: 3}
+  requiresPower: 1
   resourcesRequiredToBuild:
-  - resource: 1
-    _quantity: 10
-  - resource: 3
-    _quantity: 10
-  resourcesStored:
   - resource: 0
+    _quantity: 20
+  - resource: 1
     _quantity: 0
-  - resource: 9
-    _quantity: 0
-  buildingType: 0
-  resourcesPerCycle:
-  - resource: 9
-    _quantity: 100
-  cycleTime: 60
+  resourcesStored: []
+  buildingType: 1
+  resourcesCanBeExtractedOrTransformed: 
+  quantityResourcesPerCycle: 0
+  cycleTime: 0
+  overlapBoxSize: 1
   description: "Cr\xE9er une zone autour de lui activant les batiments \xE0 proximit\xE9
-    lorsqu'il poss\xE8de du Lumen + se pose sur une case vide"
+    en propageant l'\xE9nergie re\xE7u depuis  le spriritum + se pose sur une case
+    vide \xE0 proximit\xE9 du spiritum"

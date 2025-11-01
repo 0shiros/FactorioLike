@@ -2,14 +2,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Quaternion = UnityEngine.Quaternion;
 
 public class HarvestBuilding : Building
 {
     [Header("Harvesting State")]
     public TileMapToResource tileToResourceMap;
-    public List<ResourceAndAmount> resourcesStored;
     private ExtractOrTranformResource resourceExtracted;
-    private float timeElapsed;
     
     private void Update()
     {
@@ -42,7 +41,7 @@ public class HarvestBuilding : Building
         if (Array.Exists(resourcesCanBeExtractedOrTransformed, r => r == tileToResource.resource))
         {
             resourceExtracted = tileToResource.resource;
-            resourcesStored.Add(new ResourceAndAmount { resource = resourceExtracted, quantity = 0 });
+            resourcesStored.Add(new ResourceAndAmount (resourceExtracted, 0 ));
         }
     }
     
@@ -51,10 +50,8 @@ public class HarvestBuilding : Building
         timeElapsed += Time.deltaTime;
         float timeToGenerate = cycleTime / quantityResourcesPerCycle;
 
-        while (timeElapsed >= timeToGenerate)
-        {
-            resourcesStored[0].quantity++;
-            timeElapsed -= timeToGenerate;
-        }
+        if (!(timeElapsed >= timeToGenerate)) return;
+        resourcesStored[0].quantity++;
+        timeElapsed -= timeToGenerate;
     }
 }

@@ -21,4 +21,10 @@ public class ResourceAndAmount
         get => _quantity;
         set => _quantity = Mathf.Clamp(value, 0, 2000000000);
     }
+    
+    public ResourceAndAmount(ExtractOrTranformResource resource, int quantity)
+    {
+        this.resource = resource;
+        this.quantity = quantity;
+    }
 }

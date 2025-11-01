@@ -5,10 +5,9 @@ using UnityEngine;
 public class BuildingData : ScriptableObject
 {
     public string buildingName => name;
+    public GameObject buildingPrefab;
     public Sprite buildingSprite;
-    public bool requiresPower;
     public ResourceAndAmount[] resourcesRequiredToBuild;
-    public List<ResourceAndAmount> resourcesStored;
     public BuildingType buildingType;
     public ExtractOrTranformResource[] resourcesCanBeExtractedOrTransformed;
     public int quantityResourcesPerCycle;
@@ -18,7 +17,8 @@ public class BuildingData : ScriptableObject
 
 public enum BuildingType
 {
-    Special,
+    Transport,
     Transform,
-    Harvest
+    Harvest,
+    Stock
 }

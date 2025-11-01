@@ -12,29 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e42dc15e08636cd489fc28e0c893d682, type: 3}
   m_Name: Canterium
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
+  buildingPrefab: {fileID: 1861461523753825792, guid: fe08068613d38d14681c92170d4b5724, type: 3}
   buildingSprite: {fileID: 21300000, guid: 836845520691b2b4098ea5e996c02b89, type: 3}
-  buildingSize: {x: 3, y: 3}
-  requiresPower: 0
   resourcesRequiredToBuild: []
-  resourcesStored:
-  - resource: 0
-    _quantity: 0
-  - resource: 1
-    _quantity: 0
-  - resource: 2
-    _quantity: 0
-  - resource: 3
-    _quantity: 0
-  - resource: 4
-    _quantity: 0
-  - resource: 5
-    _quantity: 0
-  - resource: 6
-    _quantity: 0
-  - resource: 7
-    _quantity: 0
-  buildingType: 0
-  resourcesPerCycle: []
+  buildingType: 3
+  resourcesCanBeExtractedOrTransformed: 
+  quantityResourcesPerCycle: 0
   cycleTime: 0
   description: "Permet de stocker toutes les ressources du jeu en quantit\xE9 infini
     + c'est le hub de la base du joueur"

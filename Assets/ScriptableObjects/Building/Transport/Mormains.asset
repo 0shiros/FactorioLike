@@ -12,33 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e42dc15e08636cd489fc28e0c893d682, type: 3}
   m_Name: Mormains
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
-  buildingSprite: {fileID: 21300000, guid: 1e38c97c80a2e20428026628ca9f1e0a, type: 3}
-  buildingSize: {x: 1, y: 1}
-  requiresPower: 0
+  buildingPrefab: {fileID: 1861461523753825792, guid: e87d0fd493b0f14408e9d292f99f5971, type: 3}
+  buildingSprite: {fileID: 21300000, guid: 0ac812f3dce2ca64bbe052e0ca4c7006, type: 3}
   resourcesRequiredToBuild:
-  - resource: 0
-    _quantity: 10
   - resource: 1
     _quantity: 10
-  resourcesStored: []
-  buildingType: 0
-  resourcesPerCycle:
-  - resource: 0
-    _quantity: 0
-  - resource: 1
-    _quantity: 0
   - resource: 2
-    _quantity: 0
-  - resource: 3
-    _quantity: 0
-  - resource: 4
-    _quantity: 0
-  - resource: 5
-    _quantity: 0
-  - resource: 6
-    _quantity: 0
-  - resource: 7
-    _quantity: 0
+    _quantity: 10
+  buildingType: 0
+  resourcesCanBeExtractedOrTransformed: 
+  quantityResourcesPerCycle: 200
   cycleTime: 60
   description: "Permet de d\xE9placer les ressources extraites ou transform\xE9s
     depuis un batiment \xE0 un autre batiment."

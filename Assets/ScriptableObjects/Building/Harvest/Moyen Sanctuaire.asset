@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e42dc15e08636cd489fc28e0c893d682, type: 3}
   m_Name: Moyen Sanctuaire
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
+  buildingPrefab: {fileID: 1861461523753825792, guid: deea23c994f42ae47a7c0720eaed8c00, type: 3}
   buildingSprite: {fileID: 5981005362195350469, guid: a60ad29ea2f6c4340b4b4cfcf4211f4f, type: 3}
-  buildingSize: 2
-  requiresPower: 1
   resourcesRequiredToBuild:
   - resource: 1
     _quantity: 500
@@ -22,7 +21,6 @@ MonoBehaviour:
     _quantity: 500
   - resource: 3
     _quantity: 500
-  resourcesStored: []
   buildingType: 2
   resourcesCanBeExtractedOrTransformed: 01000000020000000300000004000000
   quantityResourcesPerCycle: 100

@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6523631579005920002}
   - component: {fileID: 3505226021517375260}
-  - component: {fileID: -3492835679740663932}
-  - component: {fileID: -2726683495878535715}
+  - component: {fileID: 1643602393677262192}
+  - component: {fileID: 2885849574804344044}
   m_Layer: 0
-  m_Name: TransformBuilding
+  m_Name: ConveyorBuilding
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,7 +92,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-3492835679740663932
+--- !u!114 &1643602393677262192
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,22 +101,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1861461523753825792}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7cf0c4a2b4d96744ba2a0cd416de62c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b98ce06986944143a1293867588751e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TransformBuilding
+  m_EditorClassIdentifier: Assembly-CSharp::ConveyorBuilding
   buildingData: {fileID: 0}
   buildingPrefab: {fileID: 0}
   buildingType: 0
-  requiresPower: 0
   resourcesCanBeExtractedOrTransformed: 
   quantityResourcesPerCycle: 0
   cycleTime: 0
   overlapBoxSize: 0
   description: 
   tilemapResources: {fileID: 0}
-  recipe: {fileID: 0}
-  timeElapsed: 0
---- !u!61 &-2726683495878535715
+--- !u!61 &2885849574804344044
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

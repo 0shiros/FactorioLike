@@ -1,15 +1,10 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class TransformBuilding : Building
+public class StockBuilding : Building
 {
-    public RecipeData recipe;
-    
     public override void InitializeBuilding(BuildingData data, int order, Tilemap tileMapResources)
     {
         base.InitializeBuilding(data, order, tileMapResources);
-        timeElapsed = 0f;
     }
-    
-    
 }

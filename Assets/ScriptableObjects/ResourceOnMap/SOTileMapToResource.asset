@@ -21,5 +21,3 @@ MonoBehaviour:
     resource: 3
   - tile: {fileID: 11400000, guid: 7e9c30458ba621c4688e150804bae862, type: 2}
     resource: 4
-  - tile: {fileID: 0}
-    resource: 0

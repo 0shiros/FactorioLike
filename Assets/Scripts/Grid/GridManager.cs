@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,18 +11,34 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Vector2 originPosition;
     [SerializeField] private List<Cell> cells;
     private BuildingData buildingData;
-    private int currentCellIndex;
 
     [Header("Buildings Settings")]
     public GameObject buildings;
-    public GameObject[] buildingsPrefabs;
+    public GameObject buildingPreviewPrefab;
+    public Color32 previewColorToBuild;
+    public Color32 previewColorCantBuild;
+    private GameObject buildingPreview;
+    private SpriteRenderer buildingPreviewSpriteRenderer;
+    private int currentCell;
+    
 
     [Header("Tilemap Settings")]
     public Tilemap tileMapResources;
     private TileBase tileToConstruct;
     public TileBase cristalertTileOnMap, boisNoireTileOnMap, rocheNoireTileOnMap, craneRoncierTileOnMap;
 
-    private void Start() => InitializeGrid();
+    private void Start()
+    {
+        InitializeGrid();
+        buildingPreview = Instantiate(buildingPreviewPrefab, PositionScreenToWorld(), Quaternion.identity);
+        buildingPreviewSpriteRenderer = buildingPreview.GetComponent<SpriteRenderer>();
+    }
+
+    private void Update()
+    {
+        DetectCellContains();
+        PreviewBuilding();
+    }
 
     private void InitializeGrid()
     {
@@ -50,51 +67,42 @@ public class GridManager : MonoBehaviour
     
     public void RemoveBuildingFromMap()
     {
-        DetectCellContains();
-        DestroyBuildings(currentCellIndex);
+        DestroyBuildings(currentCell);
     }
 
     public void AddBuildingToMap()
     {
-        DetectCellContains();
-        if (CanConstructOnCell(currentCellIndex))
+        if (CanConstructOnCell(currentCell))
         {
-            CreateBuilding(buildingsPrefabs[(int)buildingData.buildingType], currentCellIndex);
+            CreateBuilding(currentCell);
         }
     }
     
     private void DetectCellContains()
     {
-        Vector2 mousePosition = PositionScreenToWorld();
-        for (int i = 0; i < cells.Count; i++)
-        {
-            if (cells[i].rect.Contains(mousePosition))
-            {
-                currentCellIndex = i;
-                break;
-            }
-        }
+        currentCell = cells.FindIndex(cell => cell.rect.Contains(PositionScreenToWorld()));
     }
 
     private bool CanConstructOnCell(int cellIndex)
     {
-        if (cells[cellIndex].building != null || buildingData == null) return false;
+        if (cellIndex < 0 || cellIndex > cells.Count || cells[cellIndex].building != null || buildingData == null) return false;
 
         TileBase detectedTile = DetectTile(PositionScreenToWorld());
-        return (detectedTile == null && (buildingData.buildingType == BuildingType.Special || buildingData.buildingType == BuildingType.Transform)) ||
+        return (detectedTile == null && buildingData.buildingType is BuildingType.Transport  or BuildingType.Stock or BuildingType.Transform) ||
                (detectedTile != null && buildingData.buildingType == BuildingType.Harvest);
     }
 
-    private GameObject CreateBuilding(GameObject prefab, int cellIndex)
+    private GameObject CreateBuilding(int cellIndex)
     {
-        GameObject buildingInstance = Instantiate(prefab, cells[currentCellIndex].position, Quaternion.identity, buildings.transform);
+        GameObject buildingInstance = Instantiate(buildingData.buildingPrefab, cells[currentCell].position, Quaternion.identity, buildings.transform);
         Building buildingComponent = buildingInstance.GetComponent<Building>();
-        buildingComponent.InitializeBuilding(buildingData,ReturnOrderInLayer(cells[currentCellIndex].position), tileMapResources);
-        cells[currentCellIndex].building = buildingInstance;
+        buildingComponent.InitializeBuilding(buildingData,ReturnOrderInLayer(cells[currentCell].position), tileMapResources);
+        cells[currentCell].building = buildingInstance;
         return buildingInstance;
     }
     private void DestroyBuildings(int cellIndex)
     {
+        if (cellIndex < 0 || cellIndex > cells.Count) return;
         Destroy(cells[cellIndex].building);
     }
     
@@ -103,6 +111,22 @@ public class GridManager : MonoBehaviour
         if (tileMapResources == null) return null;
         return tileToConstruct = tileMapResources.GetTile(tileMapResources.WorldToCell(mousePosition));
     }
+
+    private void PreviewBuilding()
+    {
+        if (currentCell > 0 && currentCell < cells.Count)
+        {
+            buildingPreview.transform.position = cells[currentCell].position;
+        }
+        else
+        {
+            buildingPreview.transform.position = buildingPreview.transform.position;
+            return;
+        }
+        
+        buildingPreviewSpriteRenderer.color = CanConstructOnCell(currentCell) ? previewColorToBuild : previewColorCantBuild;
+        buildingPreviewSpriteRenderer.sprite = buildingData != null ? buildingPreviewSpriteRenderer.sprite = buildingData.buildingSprite : null;
+    }
     
     private int ReturnOrderInLayer(Vector2 position) => height / 2 - (int)position.y;
 
@@ -110,13 +134,13 @@ public class GridManager : MonoBehaviour
     private Vector2 PositionScreenToWorld() => Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
     
 
-    private void OnDrawGizmos()
-    {
-        if (cells == null) return;
-        Gizmos.color = Color.white;
-        foreach (Cell cell in cells)
-        {
-            Gizmos.DrawWireCube(cell.position, Vector2.one * cellsSize);
-        }
-    }
+    // private void OnDrawGizmos()
+    // {
+    //     if (cells == null) return;
+    //     Gizmos.color = Color.white;
+    //     foreach (Cell cell in cells)
+    //     {
+    //         Gizmos.DrawWireCube(cell.position, Vector2.one * cellsSize);
+    //     }
+    // }
 }
