@@ -13,12 +13,10 @@ MonoBehaviour:
   m_Name: RecipeArtefactMagique
   m_EditorClassIdentifier: Assembly-CSharp::RecipeData
   ingredients:
-  - resource: 7
-    quantity: 20
-  - resource: 0
-    quantity: 20
+  - resource: 8
+    _quantity: 20
   - resource: 1
-    quantity: 20
-  result:
-    resource: 8
-    quantity: 1
+    _quantity: 20
+  - resource: 2
+    _quantity: 20
+  result: 9

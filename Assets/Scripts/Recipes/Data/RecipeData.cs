@@ -5,7 +5,7 @@ public class RecipeData : ScriptableObject
 {
     public string recipeName => name;
     public ResourceAndAmount[] ingredients;
-    public ResourceAndAmount result;
+    public ExtractOrTranformResource result;
 }
 
 [System.Serializable]

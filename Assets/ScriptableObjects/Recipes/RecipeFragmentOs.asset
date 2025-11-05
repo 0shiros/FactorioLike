@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: RecipeFragmentOs
   m_EditorClassIdentifier: Assembly-CSharp::RecipeData
   ingredients:
-  - resource: 3
-    quantity: 20
-  result:
-    resource: 4
-    quantity: 10
+  - resource: 4
+    _quantity: 20
+  result: 5

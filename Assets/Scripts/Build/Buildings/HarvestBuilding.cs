@@ -40,7 +40,7 @@ public class HarvestBuilding : Building
 
         if (tileToResource == null) return;
 
-        if (Array.Exists(resourcesCanBeExtractedOrTransformed, r => r == tileToResource.resource))
+        if (Array.Exists(resourcesCanBeExtracted, r => r == tileToResource.resource))
         {
             resourceExtracted = tileToResource.resource;
             resourcesStored.Add(new ResourceAndAmount (resourceExtracted, 0 ));

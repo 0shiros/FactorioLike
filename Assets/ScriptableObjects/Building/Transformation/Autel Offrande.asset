@@ -20,8 +20,9 @@ MonoBehaviour:
   - resource: 3
     _quantity: 10
   buildingType: 1
-  resourcesCanBeExtractedOrTransformed: 
-  quantityResourcesPerCycle: 0
+  resourcesCanBeExtracted: 
+  quantityResourcesPerCycle: 10
   cycleTime: 60
+  recipe: {fileID: 11400000, guid: 9e550056445cddc4fa32e36bc0e5178a, type: 2}
   description: "Poss\xE8de une/ plusieurs entr\xE9e(s) de ressources et une sortie
     de ressource  + se pose sur une case vide"

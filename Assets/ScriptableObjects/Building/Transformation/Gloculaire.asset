@@ -23,8 +23,9 @@ MonoBehaviour:
     _quantity: 0
   buildingType: 1
   resourcesCanBeExtractedOrTransformed: 
-  quantityResourcesPerCycle: 0
+  quantityResourcesPerCycle: 1
   cycleTime: 600
+  recipe: {fileID: 11400000, guid: 4cd8847380e97524d946c7985105d5b4, type: 2}
   description: "Poss\xE8de une/ plusieurs entr\xE9e(s) de ressources et une sortie
     de ressource  + se pose sur une case vide + Recentre la cam\xE9ra et cr\xE9er
     un portail pour s'\xE9chapper  + se pose sur une case vide"

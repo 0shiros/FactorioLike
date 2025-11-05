@@ -10,7 +10,7 @@ public abstract class Building : MonoBehaviour
     public BuildingData buildingData;
     public GameObject buildingPrefab;
     public BuildingType buildingType;
-    public ExtractOrTranformResource[] resourcesCanBeExtractedOrTransformed;
+    public ExtractOrTranformResource[] resourcesCanBeExtracted;
     public int quantityResourcesPerCycle;
     public float cycleTime;
     public string description;
@@ -49,7 +49,7 @@ public abstract class Building : MonoBehaviour
         description = data.description;
         buildingType = data.buildingType;
         quantityResourcesPerCycle = data.quantityResourcesPerCycle;
-        resourcesCanBeExtractedOrTransformed = data.resourcesCanBeExtractedOrTransformed;
+        resourcesCanBeExtracted = data.resourcesCanBeExtracted;
         cycleTime = data.cycleTime;
         tilemapResources = tilemapResource;
         SetOrderInLayer(order);
@@ -99,31 +99,41 @@ public abstract class Building : MonoBehaviour
     
     private void MakeTheTransfert()
     {
-        if (buildingDetected.buildingType == BuildingType.Stock)
+        if (resourcesStored.Count == 0) return;
+
+        switch (buildingDetected.buildingType)
         {
-            Debug.Log("building stock detected");
-            
-            if (resourcesStored.Count > 0)
-            {
-                Debug.Log("I transfert to stock building");
-                
-                int transferAmount = CalculateTransferAmount();
-                if (transferAmount > 0)
+            case BuildingType.Stock:
+                TransferIfPossible();
+                break;
+
+            case BuildingType.Transform:
+                foreach (var resource in buildingDetected.resourcesStored)
                 {
-                    TransferResourceToBuilding(buildingDetected, resourcesStored[0], transferAmount);
+                    if (resource.resource == resourcesStored[0].resource)
+                    {
+                        TransferIfPossible();
+                        break;
+                    }
                 }
-            }
+                break;
+
+            default:
+                if (buildingDetected.resourcesStored.Count == 0 || 
+                    buildingDetected.resourcesStored[0].resource == resourcesStored[0].resource)
+                {
+                    TransferIfPossible();
+                }
+                break;
         }
-        else if (buildingDetected.buildingType != BuildingType.Stock)
+    }
+
+    private void TransferIfPossible()
+    {
+        int transferAmount = CalculateTransferAmount();
+        if (transferAmount > 0)
         {
-            if(resourcesStored.Count > 0 && (buildingDetected.resourcesStored.Count == 0 || buildingDetected.resourcesStored[0].resource == resourcesStored[0].resource))
-            {
-                int transferAmount = CalculateTransferAmount();
-                if (transferAmount > 0)
-                {
-                    TransferResourceToBuilding(buildingDetected, resourcesStored[0], transferAmount);
-                }
-            }
+            TransferResourceToBuilding(buildingDetected, resourcesStored[0], transferAmount);
         }
     }
 

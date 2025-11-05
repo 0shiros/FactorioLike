@@ -9,9 +9,10 @@ public class BuildingData : ScriptableObject
     public Sprite buildingSprite;
     public ResourceAndAmount[] resourcesRequiredToBuild;
     public BuildingType buildingType;
-    public ExtractOrTranformResource[] resourcesCanBeExtractedOrTransformed;
+    public ExtractOrTranformResource[] resourcesCanBeExtracted;
     public int quantityResourcesPerCycle;
     public float cycleTime = 1;
+    public RecipeData recipe;
     public string description;
 }
 
