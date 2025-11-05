@@ -10,10 +10,12 @@ public class HarvestBuilding : Building
     public TileMapToResource tileToResourceMap;
     private ExtractOrTranformResource resourceExtracted;
     
-    private void Update()
+    protected override void Update()
     {
         if(resourceExtracted == ExtractOrTranformResource.none) DetectTile();
         else HarvestResources();
+        
+        base.Update();
     }
 
     public override void InitializeBuilding(BuildingData data, int order, Tilemap tileMapResources)

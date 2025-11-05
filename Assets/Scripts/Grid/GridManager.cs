@@ -9,7 +9,7 @@ public class GridManager : MonoBehaviour
     [Header("Grid Settings")]
     [SerializeField] private int width, height, cellsSize;
     [SerializeField] private Vector2 originPosition;
-    [SerializeField] private List<Cell> cells;
+    [SerializeField] private List<Cell> cells = new();
     private BuildingData buildingData;
 
     [Header("Buildings Settings")]
@@ -20,18 +20,16 @@ public class GridManager : MonoBehaviour
     private GameObject buildingPreview;
     private SpriteRenderer buildingPreviewSpriteRenderer;
     private int currentCell;
-    
+    private Quaternion rotation;
 
     [Header("Tilemap Settings")]
     public Tilemap tileMapResources;
-    private TileBase tileToConstruct;
-    public TileBase cristalertTileOnMap, boisNoireTileOnMap, rocheNoireTileOnMap, craneRoncierTileOnMap;
+    public float currentRotation = 0;
 
     private void Start()
     {
         InitializeGrid();
-        buildingPreview = Instantiate(buildingPreviewPrefab, PositionScreenToWorld(), Quaternion.identity);
-        buildingPreviewSpriteRenderer = buildingPreview.GetComponent<SpriteRenderer>();
+        SetupBuildingPreview();
     }
 
     private void Update()
@@ -39,7 +37,7 @@ public class GridManager : MonoBehaviour
         DetectCellContains();
         PreviewBuilding();
     }
-
+    
     private void InitializeGrid()
     {
         Vector2 start = originPosition - new Vector2(width, height) * cellsSize * 0.5f + Vector2.one * cellsSize * 0.5f;
@@ -63,19 +61,14 @@ public class GridManager : MonoBehaviour
     }
     private void OnEnable() => GetBuild.action += SetBuildingCellData;
     private void OnDisable() => GetBuild.action -= SetBuildingCellData;
+    
     private void SetBuildingCellData(BuildingData building) => buildingData = building;
     
-    public void RemoveBuildingFromMap()
-    {
-        DestroyBuildings(currentCell);
-    }
-
+    public void RemoveBuildingFromMap() => DestroyBuildings(currentCell);
+    
     public void AddBuildingToMap()
     {
-        if (CanConstructOnCell(currentCell))
-        {
-            CreateBuilding(currentCell);
-        }
+        if (CanConstructOnCell(currentCell)) CreateBuilding(currentCell);
     }
     
     private void DetectCellContains()
@@ -85,47 +78,57 @@ public class GridManager : MonoBehaviour
 
     private bool CanConstructOnCell(int cellIndex)
     {
-        if (cellIndex < 0 || cellIndex > cells.Count || cells[cellIndex].building != null || buildingData == null) return false;
+        if (!IsInGrid(cellIndex)|| cells[cellIndex].building != null || buildingData == null) return false;
 
         TileBase detectedTile = DetectTile(PositionScreenToWorld());
-        return (detectedTile == null && buildingData.buildingType is BuildingType.Transport  or BuildingType.Stock or BuildingType.Transform) ||
+        return (detectedTile == null && buildingData.buildingType != BuildingType.Harvest) ||
                (detectedTile != null && buildingData.buildingType == BuildingType.Harvest);
     }
 
+    private bool IsInGrid(int cellIndex) => cellIndex >= 0 && cellIndex < cells.Count;
+    
     private GameObject CreateBuilding(int cellIndex)
     {
-        GameObject buildingInstance = Instantiate(buildingData.buildingPrefab, cells[currentCell].position, Quaternion.identity, buildings.transform);
-        Building buildingComponent = buildingInstance.GetComponent<Building>();
-        buildingComponent.InitializeBuilding(buildingData,ReturnOrderInLayer(cells[currentCell].position), tileMapResources);
+        rotation = buildingData.buildingType == BuildingType.Transport ? Quaternion.AngleAxis(currentRotation, Vector3.forward) : Quaternion.identity;
+        
+        GameObject buildingInstance = Instantiate(buildingData.buildingPrefab, cells[currentCell].position, rotation, buildings.transform);
+        buildingInstance.GetComponent<Building>().InitializeBuilding(buildingData,ReturnOrderInLayer(cells[currentCell].position), tileMapResources);
         cells[currentCell].building = buildingInstance;
         return buildingInstance;
     }
     private void DestroyBuildings(int cellIndex)
     {
-        if (cellIndex < 0 || cellIndex > cells.Count) return;
-        Destroy(cells[cellIndex].building);
+        if (IsInGrid(cellIndex)) Destroy(cells[cellIndex].building);
     }
     
-    private TileBase DetectTile(Vector2 mousePosition)
+    private TileBase DetectTile(Vector2 mousePosition)=> tileMapResources?.GetTile(tileMapResources.WorldToCell(mousePosition));
+    
+    private void SetupBuildingPreview()
     {
-        if (tileMapResources == null) return null;
-        return tileToConstruct = tileMapResources.GetTile(tileMapResources.WorldToCell(mousePosition));
+        buildingPreview = Instantiate(buildingPreviewPrefab, PositionScreenToWorld(), Quaternion.identity);
+        buildingPreviewSpriteRenderer = buildingPreview.GetComponent<SpriteRenderer>();
     }
 
     private void PreviewBuilding()
     {
-        if (currentCell > 0 && currentCell < cells.Count)
+        if (IsInGrid(currentCell))
         {
             buildingPreview.transform.position = cells[currentCell].position;
+            buildingPreviewSpriteRenderer.sprite = buildingData?.buildingSprite;
+            buildingPreviewSpriteRenderer.color = CanConstructOnCell(currentCell) ? previewColorToBuild : previewColorCantBuild;
+            buildingPreview.transform.rotation = buildingData?.buildingType == BuildingType.Transport ? Quaternion.AngleAxis(currentRotation, Vector3.forward) : Quaternion.identity;
         }
-        else
+    }
+
+    public void ChangeBuildingDirection(float rotationValue)
+    {
+        if(buildingData.buildingType != BuildingType.Transport)
         {
-            buildingPreview.transform.position = buildingPreview.transform.position;
+            currentRotation = 0;
             return;
         }
         
-        buildingPreviewSpriteRenderer.color = CanConstructOnCell(currentCell) ? previewColorToBuild : previewColorCantBuild;
-        buildingPreviewSpriteRenderer.sprite = buildingData != null ? buildingPreviewSpriteRenderer.sprite = buildingData.buildingSprite : null;
+        currentRotation += rotationValue > 0 ? -90 : 90;
     }
     
     private int ReturnOrderInLayer(Vector2 position) => height / 2 - (int)position.y;

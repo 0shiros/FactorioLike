@@ -78,4 +78,9 @@ public class PlayerInputs : MonoBehaviour
             isLeftClickPress = false;
         }
     }
+
+    public void ChangeBuildingDirection(InputAction.CallbackContext context)
+    {
+        if (context.started) gridManager.ChangeBuildingDirection(context.ReadValue<float>());
+    }
 }

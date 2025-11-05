@@ -6,8 +6,9 @@ public class TransportBuilding : Building
     protected override void Update()
     {
         base.Update();
+        ClearList();
     }
-
+    
     private void ClearList()
     {
         if (resourcesStored.Count > 0 && resourcesStored[0].quantity <= 0)

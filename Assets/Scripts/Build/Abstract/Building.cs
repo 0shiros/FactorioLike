@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
 public abstract class Building : MonoBehaviour
@@ -24,6 +25,7 @@ public abstract class Building : MonoBehaviour
     public float timeElapsed;
     public Building buildingDetected;
     private float transferProgress = 0f;
+    private Vector2 dirRayCastDetection = Vector2.down;
     
     protected void Start()
     { 
@@ -45,6 +47,7 @@ public abstract class Building : MonoBehaviour
         buildingPrefab = data.buildingPrefab;
         gameObject.GetComponent<SpriteRenderer>().sprite = data.buildingSprite;
         description = data.description;
+        buildingType = data.buildingType;
         quantityResourcesPerCycle = data.quantityResourcesPerCycle;
         resourcesCanBeExtractedOrTransformed = data.resourcesCanBeExtractedOrTransformed;
         cycleTime = data.cycleTime;
@@ -52,7 +55,7 @@ public abstract class Building : MonoBehaviour
         SetOrderInLayer(order);
     }
     
-    protected void SetOrderInLayer(int order)
+    private void SetOrderInLayer(int order)
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
@@ -63,8 +66,8 @@ public abstract class Building : MonoBehaviour
 
     public void DetectBuilding()
     {
-        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, Vector2.down, 1f);
-        foreach (RaycastHit2D hit in hits)
+        Vector2 worldDirectionRayCast = trans.TransformDirection(dirRayCastDetection);
+        foreach (RaycastHit2D hit in Physics2D.RaycastAll(transform.position, worldDirectionRayCast, 1f))
         {
             if (hit.collider != null && hit.collider.gameObject != gameObject)
             {
@@ -80,8 +83,7 @@ public abstract class Building : MonoBehaviour
 
     public void RefreshBuildingAround()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(trans.position, 1f);
-        foreach (Collider2D collider in colliders)
+        foreach (Collider2D collider in Physics2D.OverlapCircleAll(trans.position, 1f))
         {
             if (collider != null && collider.gameObject != gameObject)
             {
@@ -95,37 +97,47 @@ public abstract class Building : MonoBehaviour
         }
     }
     
-    protected void MakeTheTransfert()
+    private void MakeTheTransfert()
     {
-        if (resourcesStored.Count > 0) 
+        if (buildingDetected.buildingType == BuildingType.Stock)
         {
-            int transferAmount = CalculateTransferAmount();
-            if (transferAmount > 0)
+            Debug.Log("building stock detected");
+            
+            if (resourcesStored.Count > 0)
             {
-                ResourceAndAmount resourceToTransfer = resourcesStored[0];
-                TransferResourceToBuilding(buildingDetected, resourceToTransfer, transferAmount);
+                Debug.Log("I transfert to stock building");
+                
+                int transferAmount = CalculateTransferAmount();
+                if (transferAmount > 0)
+                {
+                    TransferResourceToBuilding(buildingDetected, resourcesStored[0], transferAmount);
+                }
+            }
+        }
+        else if (buildingDetected.buildingType != BuildingType.Stock)
+        {
+            if(resourcesStored.Count > 0 && (buildingDetected.resourcesStored.Count == 0 || buildingDetected.resourcesStored[0].resource == resourcesStored[0].resource))
+            {
+                int transferAmount = CalculateTransferAmount();
+                if (transferAmount > 0)
+                {
+                    TransferResourceToBuilding(buildingDetected, resourcesStored[0], transferAmount);
+                }
             }
         }
     }
 
     private void TransferResourceToBuilding(Building targetBuilding, ResourceAndAmount resource, int amount)
     {
-        bool resourceFound = false;
-        foreach (ResourceAndAmount storedResource in targetBuilding.resourcesStored)
+        ResourceAndAmount targetResource = targetBuilding.resourcesStored.Find(r => r.resource == resource.resource);
+        if (targetResource != null)
         {
-            if (storedResource.resource == resource.resource)
-            {
-                storedResource.quantity += amount;
-                resourceFound = true;
-                break;
-            }
+            targetResource.quantity += amount;
         }
-
-        if (!resourceFound)
+        else
         {
             targetBuilding.resourcesStored.Add(new ResourceAndAmount(resource.resource, amount));
         }
-
         resource.quantity -= amount;
     }
 
@@ -133,23 +145,18 @@ public abstract class Building : MonoBehaviour
     {
         if (resourcesStored.Count == 0 || resourcesStored[0].quantity <= 0)
         {
-            transferProgress = 0f; 
+            transferProgress = 0f;
             return 0;
         }
 
-        float maxTransferPerSecond = (float)quantityResourcesPerCycle / cycleTime;
-
+        float maxTransferPerSecond = quantityResourcesPerCycle / cycleTime;
         transferProgress += maxTransferPerSecond * Time.deltaTime;
 
-        int availableAmount = resourcesStored[0].quantity;
-        int amountToTransfer = Mathf.Min(Mathf.FloorToInt(transferProgress), availableAmount);
-
+        int amountToTransfer = Mathf.Min(Mathf.FloorToInt(transferProgress), resourcesStored[0].quantity);
         if (amountToTransfer > 0)
+        {
             transferProgress -= amountToTransfer;
-        
-        if (resourcesStored[0].quantity - amountToTransfer <= 0)
-            transferProgress = 0f;
-
+        }
         return amountToTransfer;
     }
 
@@ -157,11 +164,13 @@ public abstract class Building : MonoBehaviour
     {
         if (buildingType != BuildingType.Stock)
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(trans.position, trans.position + Vector3.down);
+            Vector2 worldDirectionRayCast = trans.TransformDirection(dirRayCastDetection);
             
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(trans.position, 1f);
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(trans.position, trans.position + (Vector3)worldDirectionRayCast);
+            
+            // Gizmos.color = Color.green;
+            // Gizmos.DrawWireSphere(trans.position, 1f);
         }
     }
     
