@@ -14,10 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildingData
   buildingPrefab: {fileID: 1861461523753825792, guid: fe08068613d38d14681c92170d4b5724, type: 3}
   buildingSprite: {fileID: 21300000, guid: 836845520691b2b4098ea5e996c02b89, type: 3}
-  resourcesRequiredToBuild: []
+  resourcesRequiredToBuild:
+  - resource: 1
+    _quantity: 10
+  - resource: 3
+    _quantity: 10
   buildingType: 3
-  resourcesCanBeExtractedOrTransformed: 
-  quantityResourcesPerCycle: 0
-  cycleTime: 0
+  resourcesCanBeExtracted: 
+  quantityResourcesPerCycle: 200
+  cycleTime: 60
+  recipe: {fileID: 0}
   description: "Permet de stocker toutes les ressources du jeu en quantit\xE9 infini
     + c'est le hub de la base du joueur"

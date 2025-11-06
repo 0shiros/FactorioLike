@@ -15,14 +15,14 @@ MonoBehaviour:
   buildingPrefab: {fileID: 1861461523753825792, guid: c98d50163a7a0394181ebe37e941cd72, type: 3}
   buildingSprite: {fileID: 21300000, guid: cc21382f3d0758c47b26ab084bd860e3, type: 3}
   resourcesRequiredToBuild:
-  - resource: 6
-    _quantity: 0
+  - resource: 8
+    _quantity: 10
   - resource: 7
-    _quantity: 0
-  - resource: 1
-    _quantity: 0
+    _quantity: 10
+  - resource: 2
+    _quantity: 10
   buildingType: 1
-  resourcesCanBeExtractedOrTransformed: 
+  resourcesCanBeExtracted: 
   quantityResourcesPerCycle: 1
   cycleTime: 600
   recipe: {fileID: 11400000, guid: 4cd8847380e97524d946c7985105d5b4, type: 2}

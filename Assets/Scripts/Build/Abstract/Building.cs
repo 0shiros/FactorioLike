@@ -10,6 +10,7 @@ public abstract class Building : MonoBehaviour
     public BuildingData buildingData;
     public GameObject buildingPrefab;
     public BuildingType buildingType;
+    public ResourceAndAmount[] resourcesRequiredToBuild;
     public ExtractOrTranformResource[] resourcesCanBeExtracted;
     public int quantityResourcesPerCycle;
     public float cycleTime;
@@ -36,7 +37,7 @@ public abstract class Building : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (buildingDetected == null) return;
+        if (buildingDetected == null || buildingType == BuildingType.Stock) return;
         MakeTheTransfert();
     }
 
@@ -45,6 +46,7 @@ public abstract class Building : MonoBehaviour
         buildingData = data;
         gameObject.name = data.name;
         buildingPrefab = data.buildingPrefab;
+        resourcesRequiredToBuild = data.resourcesRequiredToBuild;
         gameObject.GetComponent<SpriteRenderer>().sprite = data.buildingSprite;
         description = data.description;
         buildingType = data.buildingType;
@@ -139,16 +141,34 @@ public abstract class Building : MonoBehaviour
 
     private void TransferResourceToBuilding(Building targetBuilding, ResourceAndAmount resource, int amount)
     {
-        ResourceAndAmount targetResource = targetBuilding.resourcesStored.Find(r => r.resource == resource.resource);
-        if (targetResource != null)
+        if (targetBuilding.buildingType == BuildingType.Stock)
         {
-            targetResource.quantity += amount;
+            StockBuilding stockBuilding = targetBuilding.gameObject.GetComponent<StockBuilding>();
+            ResourceAndAmount targetResource = stockBuilding.playerResources.resourcesStored.Find(r => r.resource == resource.resource);
+  
+            if (targetResource != null)
+            {
+                targetResource.quantity += amount;
+            }
+            else
+            {
+                stockBuilding.playerResources.resourcesStored.Add(new ResourceAndAmount(resource.resource, amount));
+            }
+            resource.quantity -= amount;
         }
         else
         {
-            targetBuilding.resourcesStored.Add(new ResourceAndAmount(resource.resource, amount));
+            ResourceAndAmount targetResource = targetBuilding.resourcesStored.Find(r => r.resource == resource.resource);
+            if (targetResource != null)
+            {
+                targetResource.quantity += amount;
+            }
+            else
+            {
+                targetBuilding.resourcesStored.Add(new ResourceAndAmount(resource.resource, amount));
+            }
+            resource.quantity -= amount;
         }
-        resource.quantity -= amount;
     }
 
     private int CalculateTransferAmount()
@@ -179,8 +199,8 @@ public abstract class Building : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawLine(trans.position, trans.position + (Vector3)worldDirectionRayCast);
             
-            // Gizmos.color = Color.green;
-            // Gizmos.DrawWireSphere(trans.position, 1f);
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(trans.position, 1f);
         }
     }
     

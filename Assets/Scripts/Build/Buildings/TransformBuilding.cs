@@ -25,14 +25,16 @@ public class TransformBuilding : Building
     
     private bool CanTransformResources()
     {
-        foreach (var ingredient in recipe.ingredients)
+        foreach (ResourceAndAmount ingredient in recipe.ingredients)
         {
-            var resource = resourcesStored.Find(r => r.resource == ingredient.resource);
+            ResourceAndAmount resource = resourcesStored.Find(r => r.resource == ingredient.resource);
+
             if (resource == null || resource.quantity < ingredient.quantity)
             {
-                return false;
+                return false; 
             }
         }
+        
         return true;
     }
 
@@ -43,9 +45,16 @@ public class TransformBuilding : Building
         timeElapsed += Time.deltaTime;
         float timeToGenerate = cycleTime / quantityResourcesPerCycle;
 
-        if (!(timeElapsed >= timeToGenerate)) return;
-        
-        resourcesStored[0].quantity++;
-        timeElapsed -= timeToGenerate;
+        if ((timeElapsed >= timeToGenerate))
+        {
+            foreach (ResourceAndAmount ingredient in recipe.ingredients)
+            {
+                ResourceAndAmount storedIngredient = resourcesStored.Find(r => r.resource == ingredient.resource);
+                storedIngredient.quantity -= ingredient.quantity;
+            }
+
+            resourcesStored[0].quantity++;
+            timeElapsed -= timeToGenerate;
+        }
     }
 }

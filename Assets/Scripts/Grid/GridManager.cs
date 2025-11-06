@@ -21,6 +21,7 @@ public class GridManager : MonoBehaviour
     private SpriteRenderer buildingPreviewSpriteRenderer;
     private int currentCell;
     private Quaternion rotation;
+    public PlayerResources playerResources;
 
     [Header("Tilemap Settings")]
     public Tilemap tileMapResources;
@@ -38,6 +39,10 @@ public class GridManager : MonoBehaviour
         PreviewBuilding();
     }
     
+    private void OnEnable() => GetBuild.action += SetBuildingCellData;
+    private void OnDisable() => GetBuild.action -= SetBuildingCellData;
+    
+    // ===== [Grid Initialization] =====
     private void InitializeGrid()
     {
         Vector2 start = originPosition - new Vector2(width, height) * cellsSize * 0.5f + Vector2.one * cellsSize * 0.5f;
@@ -59,50 +64,8 @@ public class GridManager : MonoBehaviour
             }
         }
     }
-    private void OnEnable() => GetBuild.action += SetBuildingCellData;
-    private void OnDisable() => GetBuild.action -= SetBuildingCellData;
     
-    private void SetBuildingCellData(BuildingData building) => buildingData = building;
-    
-    public void RemoveBuildingFromMap() => DestroyBuildings(currentCell);
-    
-    public void AddBuildingToMap()
-    {
-        if (CanConstructOnCell(currentCell)) CreateBuilding(currentCell);
-    }
-    
-    private void DetectCellContains()
-    {
-        currentCell = cells.FindIndex(cell => cell.rect.Contains(PositionScreenToWorld()));
-    }
-
-    private bool CanConstructOnCell(int cellIndex)
-    {
-        if (!IsInGrid(cellIndex)|| cells[cellIndex].building != null || buildingData == null) return false;
-
-        TileBase detectedTile = DetectTile(PositionScreenToWorld());
-        return (detectedTile == null && buildingData.buildingType != BuildingType.Harvest) ||
-               (detectedTile != null && buildingData.buildingType == BuildingType.Harvest);
-    }
-
-    private bool IsInGrid(int cellIndex) => cellIndex >= 0 && cellIndex < cells.Count;
-    
-    private GameObject CreateBuilding(int cellIndex)
-    {
-        rotation = buildingData.buildingType == BuildingType.Transport ? Quaternion.AngleAxis(currentRotation, Vector3.forward) : Quaternion.identity;
-        
-        GameObject buildingInstance = Instantiate(buildingData.buildingPrefab, cells[currentCell].position, rotation, buildings.transform);
-        buildingInstance.GetComponent<Building>().InitializeBuilding(buildingData,ReturnOrderInLayer(cells[currentCell].position), tileMapResources);
-        cells[currentCell].building = buildingInstance;
-        return buildingInstance;
-    }
-    private void DestroyBuildings(int cellIndex)
-    {
-        if (IsInGrid(cellIndex)) Destroy(cells[cellIndex].building);
-    }
-    
-    private TileBase DetectTile(Vector2 mousePosition)=> tileMapResources?.GetTile(tileMapResources.WorldToCell(mousePosition));
-    
+    // ===== [Building Preview] =====
     private void SetupBuildingPreview()
     {
         buildingPreview = Instantiate(buildingPreviewPrefab, PositionScreenToWorld(), Quaternion.identity);
@@ -114,28 +77,116 @@ public class GridManager : MonoBehaviour
         if (IsInGrid(currentCell))
         {
             buildingPreview.transform.position = cells[currentCell].position;
+            buildingPreview.transform.rotation = buildingData?.buildingType == BuildingType.Transport ? Quaternion.AngleAxis(currentRotation, Vector3.forward) : Quaternion.identity;
             buildingPreviewSpriteRenderer.sprite = buildingData?.buildingSprite;
             buildingPreviewSpriteRenderer.color = CanConstructOnCell(currentCell) ? previewColorToBuild : previewColorCantBuild;
-            buildingPreview.transform.rotation = buildingData?.buildingType == BuildingType.Transport ? Quaternion.AngleAxis(currentRotation, Vector3.forward) : Quaternion.identity;
+            buildingPreviewSpriteRenderer.sortingOrder = ReturnOrderInLayer(cells[currentCell].position) + 1;
         }
     }
-
+    
     public void ChangeBuildingDirection(float rotationValue)
-    {
-        if(buildingData.buildingType != BuildingType.Transport)
         {
-            currentRotation = 0;
-            return;
+            currentRotation = buildingData.buildingType == BuildingType.Transport ? currentRotation + (rotationValue > 0 ? -90 : 90) : 0;
         }
-        
-        currentRotation += rotationValue > 0 ? -90 : 90;
+    
+    // ===== [Cell Detection & Interaction] =====
+    private void DetectCellContains()
+    {
+        currentCell = cells.FindIndex(cell => cell.rect.Contains(PositionScreenToWorld()));
     }
     
-    private int ReturnOrderInLayer(Vector2 position) => height / 2 - (int)position.y;
-
-
     private Vector2 PositionScreenToWorld() => Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+    private int ReturnOrderInLayer(Vector2 position) => height / 2 - (int)position.y;
+    private bool IsInGrid(int cellIndex) => cellIndex >= 0 && cellIndex < cells.Count;
+    private TileBase DetectTile(Vector2 mousePosition)=> tileMapResources?.GetTile(tileMapResources.WorldToCell(mousePosition));
+
+    // ===== [Building Construction]
+    private void SetBuildingCellData(BuildingData building) => buildingData = building;
+    public void AddBuildingToMap()
+    {
+        if (CanConstructOnCell(currentCell) && HaveEnoughResources()) CreateBuilding(currentCell);
+    }
     
+    private bool CanConstructOnCell(int cellIndex)
+    {
+        if (!IsInGrid(cellIndex)|| cells[cellIndex].building != null || buildingData == null) return false;
+
+        TileBase detectedTile = DetectTile(PositionScreenToWorld());
+        return (detectedTile == null && buildingData.buildingType != BuildingType.Harvest) ||
+               (detectedTile != null && buildingData.buildingType == BuildingType.Harvest);
+    }
+    
+    private bool HaveEnoughResources()
+        {
+            if (buildingData == null || playerResources == null) return false;
+    
+            foreach (var resourceAndAmount in buildingData.resourcesRequiredToBuild)
+            {
+                ResourceAndAmount playerResource = playerResources.resourcesStored.Find(r => r.resource == resourceAndAmount.resource);
+                if (playerResource == null || playerResource.quantity < resourceAndAmount.quantity)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+    
+    private GameObject CreateBuilding(int cellIndex)
+        {
+            rotation = buildingData.buildingType == BuildingType.Transport ? Quaternion.AngleAxis(currentRotation, Vector3.forward) : Quaternion.identity;
+            GameObject buildingInstance = Instantiate(buildingData.buildingPrefab, cells[currentCell].position, rotation, buildings.transform);
+            Building building = buildingInstance.GetComponent<Building>();
+            building.InitializeBuilding(buildingData,ReturnOrderInLayer(cells[currentCell].position), tileMapResources);
+            ConsumeResourceToConstruct();
+            if (building.buildingType == BuildingType.Stock) building.GetComponent<StockBuilding>().playerResources = playerResources;
+            cells[currentCell].building = buildingInstance;
+            return buildingInstance;
+        }   
+    
+    private void ConsumeResourceToConstruct()
+        {
+            foreach (var resourceAndAmount in buildingData.resourcesRequiredToBuild)
+            {
+                ResourceAndAmount playerResource = playerResources.resourcesStored.Find(r => r.resource == resourceAndAmount.resource);
+                if (playerResource != null)
+                {
+                    playerResource.quantity -= resourceAndAmount.quantity;
+                }
+            }
+        }
+    
+    
+    // ===== [Building Destruction] =====
+
+    public void RemoveBuildingFromMap()
+    {
+       if(CanDestroyOnCell(currentCell)) DestroyBuildings(currentCell);
+    }
+    
+    private bool CanDestroyOnCell(int cellIndex) => IsInGrid(cellIndex) && cells[cellIndex].building != null;
+    
+    private void DestroyBuildings(int cellIndex)
+    {
+        if (IsInGrid(cellIndex))
+        {
+            ResourceComeBackAfterDestroyBuilding(cellIndex);
+            Destroy(cells[cellIndex].building); 
+        }
+    }
+    
+    private void ResourceComeBackAfterDestroyBuilding(int cellIndex)
+    {
+        Building buildingToDestroy = cells[cellIndex].building.GetComponent<Building>();
+        foreach (var resourceAndAmount in buildingToDestroy.buildingData.resourcesRequiredToBuild)
+        {
+            ResourceAndAmount playerResource = playerResources.resourcesStored.Find(r => r.resource == resourceAndAmount.resource);
+            
+            if (playerResource != null)
+            {
+                playerResource.quantity += resourceAndAmount.quantity;
+            }
+        }
+    }
 
     // private void OnDrawGizmos()
     // {

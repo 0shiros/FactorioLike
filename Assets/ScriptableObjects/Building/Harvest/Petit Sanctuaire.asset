@@ -15,7 +15,7 @@ MonoBehaviour:
   buildingPrefab: {fileID: 1861461523753825792, guid: deea23c994f42ae47a7c0720eaed8c00, type: 3}
   buildingSprite: {fileID: -103459714157544154, guid: 2bd588fa289931e4390b4af863066ddd, type: 3}
   resourcesRequiredToBuild:
-  - resource: 1
+  - resource: 4
     _quantity: 10
   - resource: 2
     _quantity: 10
