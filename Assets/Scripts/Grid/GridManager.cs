@@ -85,9 +85,10 @@ public class GridManager : MonoBehaviour
     }
     
     public void ChangeBuildingDirection(float rotationValue)
-        {
-            currentRotation = buildingData.buildingType == BuildingType.Transport ? currentRotation + (rotationValue > 0 ? -90 : 90) : 0;
-        }
+    {
+        if(buildingData == null) return;
+        currentRotation = buildingData.buildingType == BuildingType.Transport ? currentRotation + (rotationValue > 0 ? -90 : 90) : 0;
+    }
     
     // ===== [Cell Detection & Interaction] =====
     private void DetectCellContains()
@@ -188,13 +189,13 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    // private void OnDrawGizmos()
-    // {
-    //     if (cells == null) return;
-    //     Gizmos.color = Color.white;
-    //     foreach (Cell cell in cells)
-    //     {
-    //         Gizmos.DrawWireCube(cell.position, Vector2.one * cellsSize);
-    //     }
-    // }
+    private void OnDrawGizmos()
+    {
+        if (cells == null) return;
+        Gizmos.color = Color.white;
+        foreach (Cell cell in cells)
+        {
+            Gizmos.DrawWireCube(cell.position, Vector2.one * cellsSize);
+        }
+    }
 }

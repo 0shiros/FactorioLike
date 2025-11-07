@@ -16,11 +16,11 @@ MonoBehaviour:
   buildingSprite: {fileID: 5981005362195350469, guid: a60ad29ea2f6c4340b4b4cfcf4211f4f, type: 3}
   resourcesRequiredToBuild:
   - resource: 4
-    _quantity: 500
+    _quantity: 200
   - resource: 2
-    _quantity: 500
+    _quantity: 200
   - resource: 3
-    _quantity: 500
+    _quantity: 200
   buildingType: 2
   resourcesCanBeExtracted: 01000000020000000300000004000000
   quantityResourcesPerCycle: 100

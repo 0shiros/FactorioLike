@@ -27,17 +27,17 @@ public class CameraMovement : MonoBehaviour
       cameraTransform.position = new Vector3(clampedX, clampedY, cameraTransform.position.z);
   }
 
-  // private void OnDrawGizmos()
-  // {
-  //       Gizmos.color = Color.red;
-  //       Vector3 bottomLeft = new Vector3(limitPosition.xMin, limitPosition.yMin, 0);
-  //       Vector3 bottomRight = new Vector3(limitPosition.xMax, limitPosition.yMin, 0);
-  //       Vector3 topRight = new Vector3(limitPosition.xMax, limitPosition.yMax, 0);
-  //       Vector3 topLeft = new Vector3(limitPosition.xMin, limitPosition.yMax, 0);
-  //   
-  //       Gizmos.DrawLine(bottomLeft, bottomRight);
-  //       Gizmos.DrawLine(bottomRight, topRight);
-  //       Gizmos.DrawLine(topRight, topLeft);
-  //       Gizmos.DrawLine(topLeft, bottomLeft);
-  // }
+  private void OnDrawGizmos()
+  {
+        Gizmos.color = Color.red;
+        Vector3 bottomLeft = new Vector3(limitPosition.xMin, limitPosition.yMin, 0);
+        Vector3 bottomRight = new Vector3(limitPosition.xMax, limitPosition.yMin, 0);
+        Vector3 topRight = new Vector3(limitPosition.xMax, limitPosition.yMax, 0);
+        Vector3 topLeft = new Vector3(limitPosition.xMin, limitPosition.yMax, 0);
+    
+        Gizmos.DrawLine(bottomLeft, bottomRight);
+        Gizmos.DrawLine(bottomRight, topRight);
+        Gizmos.DrawLine(topRight, topLeft);
+        Gizmos.DrawLine(topLeft, bottomLeft);
+  }
 }
